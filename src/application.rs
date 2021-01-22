@@ -256,10 +256,7 @@ where
     }
 
     fn mode(&mut self) -> Option<iced_winit::Mode> {
-        self.0.mode().map(|e| match e {
-            window::Mode::Windowed => iced_winit::Mode::Windowed,
-            window::Mode::Fullscreen => iced_winit::Mode::Fullscreen,
-        })
+        self.0.mode().map(Into::into)
     }
 
     fn subscription(&self) -> Subscription<Self::Message> {

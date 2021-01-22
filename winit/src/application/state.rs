@@ -1,5 +1,5 @@
 use crate::conversion;
-use crate::{Application, Color, Debug, Point, Size, Viewport};
+use crate::{Application, Color, Debug, Mode, Point, Size, Viewport};
 
 use std::marker::PhantomData;
 use winit::event::{Touch, WindowEvent};
@@ -172,10 +172,15 @@ impl<A: Application> State<A> {
 
         // Update window mode
         if let Some(mode) = application.mode() {
-            window.set_fullscreen(conversion::fullscreen(
-                window.current_monitor(),
-                mode,
-            ));
+            match mode {
+                Mode::Minimum => window.set_minimized(true),
+                Mode::Fullscreen | Mode::Windowed => {
+                    window.set_fullscreen(conversion::fullscreen(
+                        window.current_monitor(),
+                        mode,
+                    ));
+                }
+            }
         }
 
         // Update background color

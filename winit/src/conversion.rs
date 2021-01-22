@@ -138,7 +138,7 @@ pub fn fullscreen(
     mode: Mode,
 ) -> Option<winit::window::Fullscreen> {
     match mode {
-        Mode::Windowed => None,
+        Mode::Windowed | Mode::Minimum => None,
         Mode::Fullscreen => {
             Some(winit::window::Fullscreen::Borderless(monitor))
         }
